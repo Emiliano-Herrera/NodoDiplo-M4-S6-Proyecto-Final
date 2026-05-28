@@ -8,8 +8,11 @@ import axios from 'axios';
   withCredentials: false,  // Importante para CORS
 }); */
 
+// Usar directamente la URL de Render en producción
+const API_URL = 'https://diplomatura-backend-u85h.onrender.com';
+
 const api = axios.create({
-  baseURL: 'https://diplomatura-backend-u85h.onrender.com', // Hardcodeado
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
