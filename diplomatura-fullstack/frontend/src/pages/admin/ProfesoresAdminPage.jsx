@@ -3,8 +3,8 @@ import { Plus } from "lucide-react";
 import Swal from "sweetalert2";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { ProfesorTableAdvanced } from "../../components/admin/profesores/ProfesorTableAdvanced.jsx";
-import { ProfesorForm } from "../../components/admin/profesores/ProfesorForm.jsx";
+import { ProfesorTableAdvanced } from "../../components/admin/profesores/ProfesorTableAdvanced";
+import { ProfesorForm } from "../../components/admin/profesores/ProfesorForm";
 import {
   getProfesores,
   createProfesor,
