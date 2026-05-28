@@ -48,7 +48,17 @@ const registrarUsuario = async (req, res) => {
 // @access Público
 const loginUsuario = async (req, res) => {
   try {
+
+    console.log("📦 Headers recibidos:", req.headers);
+    console.log("📦 Body recibido:", req.body);
+    console.log("📦 Body email:", req.body?.email);
+
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      console.log("❌ Email o password faltantes");
+      return res.status(400).json({ message: 'Email y contraseña son obligatorios' });
+    }
 
     // Verificar si el usuario existe y traer password
     const usuario = await Usuario.findOne({ email }).select('+password');
@@ -75,6 +85,7 @@ const loginUsuario = async (req, res) => {
       token: generarToken(usuario._id, usuario.rol)
     });
   } catch (error) {
+    console.error("❌ Error en login:", error);
     res.status(500).json({ message: error.message });
   }
 };
