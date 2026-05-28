@@ -5,9 +5,9 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: false,  // Importante para CORS
 });
 
-// Interceptor para agregar el token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
