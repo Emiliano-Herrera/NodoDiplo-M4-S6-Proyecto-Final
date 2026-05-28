@@ -9,10 +9,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    outDir: 'dist',  // Asegura que los archivos se generen en la carpeta 'dist'
+    emptyOutDir: true,
+  },
   server: {
     port: 3000,
     proxy: {
-      // Ya no es necesario el prefijo /api
       '/auth': {
         target: 'http://localhost:5000',
         changeOrigin: true,
