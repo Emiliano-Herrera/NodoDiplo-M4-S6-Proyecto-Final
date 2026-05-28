@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { ModuloCard } from "../../components/admin/modulos/ModuloCard";
-import { ModuloForm } from "../../components/admin/modulos/ModuloForm";
+import { ModuloCard } from "../../components/admin/Modulos/ModuloCard";
+import { ModuloForm } from "../../components/admin/Modulos/ModuloForm";
 import {
   getModulos,
   createModulo,
