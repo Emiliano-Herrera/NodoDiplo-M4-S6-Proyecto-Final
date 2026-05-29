@@ -11,10 +11,14 @@ import {
   Moon,
   Menu,
   X,
-  Home
+  Home,
+  User,
+  Shield,
+  Edit
 } from 'lucide-react';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
+import { useAuth } from '../../../hooks/useAuth';
 
 const menuItems = [
   { path: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
@@ -24,8 +28,33 @@ const menuItems = [
   { path: '/admin/temas', icon: FolderTree, label: 'Temas' },
 ];
 
+// Función para obtener el icono del rol
+const getRoleIcon = (rol) => {
+  switch (rol) {
+    case 'admin':
+      return <Shield className="w-4 h-4 text-red-500" />;
+    case 'editor':
+      return <Edit className="w-4 h-4 text-blue-500" />;
+    default:
+      return <User className="w-4 h-4 text-green-500" />;
+  }
+};
+
+// Función para obtener el nombre del rol en español
+const getRoleName = (rol) => {
+  switch (rol) {
+    case 'admin':
+      return 'Administrador';
+    case 'editor':
+      return 'Editor';
+    default:
+      return 'Visitante';
+  }
+};
+
 export function Sidebar() {
   const { darkMode, toggleTheme } = useTheme();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -67,6 +96,33 @@ export function Sidebar() {
           )}
         </div>
       </div>
+
+      {/* Perfil del usuario logueado */}
+      {user && (
+        <div className="mx-4 mt-4 p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+              <span className="text-lg font-bold text-primary">
+                {user.nombre?.[0]?.toUpperCase() || 'U'}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-foreground truncate">
+                {user.nombre || 'Usuario'}
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {user.email || 'sin email'}
+              </p>
+              <div className="flex items-center gap-1 mt-1">
+                {getRoleIcon(user.rol)}
+                <span className="text-xs font-medium text-muted-foreground">
+                  {getRoleName(user.rol)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Navegación principal */}
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
