@@ -1276,6 +1276,187 @@ VITE_API_URL=http://localhost:5000`}
         </section>
       </ScrollReveal>
 
+      {/* Despliegue en Render - La Odisea del 29/05/26 */}
+      <ScrollReveal direction="up" delay={0.65}>
+        <section className="py-16 bg-muted/10 border-y border-border/50">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <div className="flex justify-center mb-4">
+                <div className="p-3 rounded-2xl bg-muted/30">
+                  <span className="text-4xl">🚀</span>
+                </div>
+              </div>
+              <h2 className="text-3xl font-semibold mb-3 text-foreground">
+                Despliegue en Render
+              </h2>
+              <p className="text-muted-foreground">
+                La odisea del 29 de mayo de 2026 (y encima perdió Boca LPM)
+              </p>
+            </div>
+
+            <div className="bg-card rounded-2xl border border-border/50 p-6 space-y-6">
+              {/* Intro dramática */}
+              <div className="bg-muted/20 p-4 rounded-xl">
+                <p className="text-foreground font-medium mb-2">
+                  📅 29/05/2026 - Un día para el olvido bldo
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Era un día cualquiera... o eso creía. Boca acababa de perder
+                  (como para completar el desastre "ROMÁN ANDATE") y yo llevaba HORAS
+                  intentando que Render entendiera que mi React Router no es un
+                  museo de páginas estáticas. Cada vez que escribía{" "}
+                  <code className="bg-muted/30 px-1 rounded">/admin</code>,
+                  Render me devolvía un frío{" "}
+                  <span className="text-red-400">404 Not Found</span>. Como si
+                  el servidor me dijera: "¿Admin? sabrá Dios quien es...".
+                </p>
+              </div>
+
+              {/* El problema */}
+              <div>
+                <h3 className="text-base font-medium text-foreground mb-3 flex items-center gap-2">
+                  <span className="text-xl">🐛</span> El error maldito
+                </h3>
+                <pre className="bg-muted/30 p-4 rounded-xl text-sm font-mono text-red-400 overflow-x-auto">
+                  {`GET https://mi-frontend.onrender.com/admin
+HTTP/1.1 404 Not Found
+<html>
+  <body>Not Found</body>
+</html>`}
+                </pre>
+                <p className="text-muted-foreground text-sm mt-2">
+                  El problema: Render servía el{" "}
+                  <code className="bg-muted/30 px-1 rounded">index.html</code>{" "}
+                  SOLO en la raíz (
+                  <code className="bg-muted/30 px-1 rounded">/</code>). Cuando
+                  intentaba ir a{" "}
+                  <code className="bg-muted/30 px-1 rounded">/admin</code>,
+                  buscaba un archivo llamado{" "}
+                  <code className="bg-muted/30 px-1 rounded">admin.html</code>
+                  que obviamente no existía. Y ahí nomás, a llorar al campito.
+                </p>
+              </div>
+
+              {/* La solución heroica */}
+              <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
+                <h3 className="text-base font-medium text-green-400 mb-3 flex items-center gap-2">
+                  <span className="text-xl">⚡</span> La solución (después de
+                  800 intentos)
+                </h3>
+                <p className="text-muted-foreground text-sm mb-3">
+                  Resulta que Render tiene una sección secreta (no tan secreta)
+                  llamada <strong>"Redirects/Rewrites"</strong>. Ahí hay que
+                  agregar una regla MÁGICA LPM:
+                </p>
+                <pre className="bg-muted/30 p-3 rounded-xl text-sm font-mono text-green-400 overflow-x-auto">
+                  {`Source: /*
+Destination: /index.html
+Action: Rewrite`}
+                </pre>
+                <p className="text-muted-foreground text-sm mt-3">
+                  Esta regla le dice a Render: "Oye, cualquier ruta que no sea
+                  un archivo real (como .css o .js), en vez de tirar error 404,
+                  servime el index.html y dejá que React Router haga su magia".
+                </p>
+              </div>
+
+              {/* Paso a paso */}
+              <div>
+                <h3 className="text-base font-medium text-foreground mb-3 flex items-center gap-2">
+                  <span className="text-xl">📋</span> El paso a paso definitivo
+                </h3>
+                <div className="space-y-3 text-sm text-muted-foreground">
+                  <div className="flex gap-3">
+                    <span className="text-primary font-bold">1.</span>
+                    <span>
+                      Subí tu código a GitHub (el sufrimiento ya lo tenés, esto
+                      es lo de menos).
+                    </span>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-primary font-bold">2.</span>
+                    <span>
+                      En Render: <strong>New + → Static Site</strong>.
+                    </span>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-primary font-bold">3.</span>
+                    <span>Conectá tu repo y configurá:</span>
+                  </div>
+                  <pre className="bg-muted/30 p-3 rounded-xl text-xs font-mono text-muted-foreground ml-6 overflow-x-auto">
+                    {`Root Directory: frontend
+Build Command: npm run build
+Publish Directory: dist`}
+                  </pre>
+                  <div className="flex gap-3">
+                    <span className="text-primary font-bold">4.</span>
+                    <span>
+                      Agregá la variable de entorno:{" "}
+                      <code className="bg-muted/30 px-1 rounded">
+                        VITE_API_URL = https://tu-backend.onrender.com
+                      </code>
+                    </span>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-primary font-bold">5.</span>
+                    <span className="font-medium">🚨 EL PASO CLAVE MONO, CUCHAME</span>
+                  </div>
+                  <div className="ml-6 space-y-2">
+                    <p>
+                      ➡️ Una vez creado el sitio, andá a{" "}
+                      <strong>Settings → Redirects/Rewrites</strong>
+                    </p>
+                    <p>➡️ Agregá la regla que tanto nos costó encontrar:</p>
+                    <pre className="bg-muted/30 p-2 rounded-xl text-xs font-mono text-green-400">
+                      {`/*    /index.html    Rewrite`}
+                    </pre>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-primary font-bold">6.</span>
+                    <span>
+                      Hacé{" "}
+                      <strong>
+                        Manual Deploy → Clear build cache & deploy
+                      </strong>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Epílogo */}
+              <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 mt-4">
+                <p className="text-sm text-muted-foreground italic">
+                  "Después de horas de debugging, 17 tazas de café, y con Boca
+                  perdiendo siendo el desastre más grande que vi en mi vida, finalmente el admin cargó. Las
+                  lágrimas de alegría (y de bronca por el partido) corrieron
+                  libres. Render aprendió a respetar el React Router, y yo
+                  aprendí que la paciencia es una virtud... o que el era más fácil un corchazo."
+                </p>
+                <p className="text-right text-xs text-muted-foreground mt-3">
+                  — Atte: el que sufrió pero triunfó (y la concha de su madre
+                  con el 404)
+                </p>
+              </div>
+
+              {/* Nota final */}
+              <div className="border-t border-border/50 pt-4 mt-2">
+                <p className="text-xs text-muted-foreground text-center">
+                  ⚠️ Nota: Si después de esto el admin te sigue tirando 404,
+                  asegurate de que el archivo{" "}
+                  <code className="bg-muted/30 px-1 rounded">
+                    frontend/public/_redirects
+                  </code>{" "}
+                  exista con:{" "}
+                  <code className="bg-muted/30 px-1 rounded">
+                    /* /index.html 200
+                  </code>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* Enlaces útiles */}
       <ScrollReveal direction="up" delay={0.7}>
         <section className="py-16 bg-muted/10 border-y border-border/50">
