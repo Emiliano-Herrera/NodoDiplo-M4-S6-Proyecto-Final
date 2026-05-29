@@ -1,5 +1,16 @@
 import api from './api';
 
+// Obtener todos los ejemplos (con paginación) - PARA EL DASHBOARD
+export const getEjemplos = async (page = 1, limit = 10, search = '') => {
+  try {
+    const response = await api.get(`/ejemplos?page=${page}&limit=${limit}&search=${search}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener ejemplos:', error);
+    return { ejemplos: [], total: 0, pages: 1 };
+  }
+};
+
 // Obtener ejemplos por tema
 export const getEjemplosByTema = async (temaId) => {
   try {

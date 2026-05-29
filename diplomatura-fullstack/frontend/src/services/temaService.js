@@ -1,5 +1,16 @@
 import api from './api';
 
+// Obtener todos los temas (con paginación y búsqueda) - PARA EL DASHBOARD
+export const getTemas = async (page = 1, limit = 10, search = '') => {
+  try {
+    const response = await api.get(`/temas?page=${page}&limit=${limit}&search=${search}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener temas:', error);
+    return { temas: [], total: 0, pages: 1 };
+  }
+};
+
 // Obtener temas por módulo
 export const getTemasByModulo = async (moduloId) => {
   try {
