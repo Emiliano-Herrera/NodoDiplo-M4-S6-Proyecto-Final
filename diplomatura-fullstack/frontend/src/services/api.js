@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// ⚠️ CRUCIAL: Usar la URL de tu backend en Render
-// Esta es la URL que te dio Render para tu Web Service
+
 const API_URL = 'https://diplomatura-backend-u85h.onrender.com';
 
 console.log('🔧 API_URL configurada:', API_URL); // Para verificar

@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({
   origin: [
     'https://diplomatura-frontend.onrender.com',  // Tu frontend en Render
-    'http://localhost:3000'                       // Desarrollo local
+    /* 'http://localhost:3000' */                       // Desarrollo local
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
