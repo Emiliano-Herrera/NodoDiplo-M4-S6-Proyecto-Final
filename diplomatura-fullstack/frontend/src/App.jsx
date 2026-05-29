@@ -18,6 +18,7 @@ import DocumentacionPage from './pages/visitante/DocumentacionPage';
 
 
 function App() {
+  console.log("🔍 Renderizando App, usuario actual:", user?.rol);
   return (
     <BrowserRouter>
       <div className="relative min-h-screen bg-background">
