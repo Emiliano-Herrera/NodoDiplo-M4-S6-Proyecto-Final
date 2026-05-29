@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Code, Image, Copy, Check, Video, Link as LinkIcon, ExternalLink, Eye, Award, ChevronDown, ChevronUp } from 'lucide-react';
 import { getEjemplosByTema } from '../../services/temaService';
-import { LiveCodePreview } from '../admin/EjemploFormjemplos/LiveCodePreview';
+import { LiveCodePreview } from '../admin/Ejemplos/LiveCodePreview';
 
 export function ModuloContent({ tema, proyecto, tipoContenido = 'tema' }) {
   const [ejemplos, setEjemplos] = useState([]);
